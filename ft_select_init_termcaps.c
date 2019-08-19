@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 19:47:20 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/16 11:25:56 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/18 17:55:24 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void		init_termcap(char **env)
 {
 	(void)env;
-	char	termbuffer[2048];
+	char	*termbuffer;
 	char	*term_type;
 	int		status;
 
+	// needed to malloc (?)
+	termbuffer = g_select.termbuffer;
 	ft_bzero(termbuffer, 2048);
 	term_type = getenv("TERM");
 	if (term_type == 0)
@@ -28,6 +30,12 @@ void		init_termcap(char **env)
 		ft_exit_err("Could not access Termcap database\n", GEN_TERM_ERR);
 	if (status == 0)
 		ft_exit_err("Terminal type is not defined\n", GEN_TERM_ERR);
+	g_select.term_name = term_type;
+	if (!isatty(2))
+	{
+		ft_dprintf(2, "fd: 2 does not belong to a tty\n");
+		exit(1);
+	}
 	//testing
 	//printf("wow you did it , here's some stuff: TERM:%s , status=%d", term_type, status);
 }

@@ -1,12 +1,12 @@
-/ */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_select.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/15 09:27:17 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/17 20:53:03 by jtaylor          ###   ########.fr       */
+/*   Created: 2019/08/18 17:47:22 by jtaylor           #+#    #+#             */
+/*   Updated: 2019/08/18 17:58:04 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #ifndef FT_SELECT_H
 # define FT_SELECT_H
 
+# include <term.h>
 # include <termcap.h>
 # include <termios.h>
 # include <stdlib.h>
@@ -35,20 +36,26 @@
 typedef struct	s_select
 {
 	char		*term_name;
-}				t_select
+	char		termbuffer[2048];
+	struct termios	old_attr;
+	struct termios	attr;
+}				t_select;
 
-extern t_select			g_select;
-
+t_select		g_select;
 /*
-** ft_select_signal.c
+** ft_select_assorted_funcions.c
 */
-
-void	ft_select_signal_handler(int signo);
+int		ft_select_putchar(int c);
 
 /*
 ** ft_select_init_termcaps.c
 */
 void		init_termcap(char **env);
+
+/*
+** ft_select_signal.c
+*/
+void	ft_select_signal_handler(int signo);
 
 /*
 ** ft_select_main.c

@@ -6,39 +6,20 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 13:00:00 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/17 19:39:40 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/18 17:57:11 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
 /*
-** allowed functions
-** *	isatty
-** *	ttyname
-** *	ttyslot
-**
-** *	ioctl
-**
-** *	getenv
-**
-** *	tcsetattr
-** *	tcgetattr
-**
-** *	tgetent
-** *	getflag
-** *	tgetnum
-** *	tgetstr
-** *	tgoto
-** *	tputs
-**
-** *	open
-** *	close
-** *	write
-**
-** *	read
-** *	exit
-**
-** *	signal
+** Notes :
+** termios structure contains at least
+** * tcflag_t c_iflag;      / input modes
+** * tcflag_t c_oflag;      / output modes
+** * tcflag_t c_cflag;      / control modes
+** * tcflag_t c_lflag;      / local modes
+** * cc_t     c_cc[NCCS];   / special characters
 */
 
 /*
@@ -76,9 +57,32 @@ static void		ft_select_signal_handle(void)
 	signal(SIGINT, ft_select_signal_handler);
 }
 
-static void		init_t_select(void)
+/*
+** runs wraper for tgetent
+** makes a copy of the current calling programs tty
+** and a duplicate for us to work with
+** toggles cannonical mode of , min read chars = 1 , timeout disabled
+**
+** `ti'
+String of commands to put the terminal into whatever special modes are needed or appropriate for programs that move the cursor nonsequentially around the screen. Programs that use termcap to do full-screen display should output this string when they start up.
+
+** `vi'
+**		String of commands to make the cursor invisible.
+*/
+static void		set_custom_config(char **env)
 {
-	g_select = getenv("TERM");
+	init_termcap(env);
+	tcgetattr(2, &g_select.old_attr);
+	tcgetattr(2,  &g_select.attr);
+	// unset cannonical mode
+	g_select.attr.c_lflag &= ~(ICANON | ECHO);
+	// minimum # of char's to read in non cannon mode
+	g_select.attr.c_cc[VMIN] = 1;
+	// timeout for noncannonical mode
+	g_select.attr.c_cc[VTIME] = 0;
+	tcsetattr(2, TCSANOW, &g_select.attr);
+	tputs(tgetstr("ti", NULL), 1, ft_select_putchar);
+	tputs(tgetstr("vi", NULL), 1, ft_select_putchar);
 }
 
 int			main(int ac, char **argv, char **environ)
@@ -90,7 +94,8 @@ int			main(int ac, char **argv, char **environ)
 		//check flag options
 		;
 	//init termcap;
-	init_termcap(environ);
+	//init_termcap(environ);
+	set_custom_config(environ);
 	//init signal
 	ft_select_signal_handle();
 	//init args
