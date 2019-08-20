@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 17:47:22 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/18 17:58:04 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/19 18:17:42 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ t_select		g_select;
 ** ft_select_assorted_funcions.c
 */
 int		ft_select_putchar(int c);
+
+/*
+** ft_select_init_argument_list.c
+*/
+void		ft_select_init_args(char **arg);
 
 /*
 ** ft_select_init_termcaps.c

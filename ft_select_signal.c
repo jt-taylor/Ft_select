@@ -6,15 +6,18 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 10:33:05 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/17 12:34:11 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/19 18:01:56 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-/*
-** see the signal man page for what each signal does
-*/
+static void		ft_select_reset_default_term_config(void)
+{
+	tcsetattr(2, TCSANOW, &g_select.old_attr);
+	tputs(tgetstr("ve", NULL), 1, ft_select_putchar);
+	tputs(tgetstr("te", NULL), 1, ft_select_putchar);
+}
 
 /*
 ** signal handle for sig susspend
@@ -33,6 +36,7 @@ static void		handle_signal_suspend(void)
 static void		handle_signal_exit(void)
 {
 	//reset termial
+	ft_select_reset_default_term_config();
 	//free anything
 	printf("Got to hanlde_signal_stop\n");
 	exit(0);

@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 13:00:00 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/18 17:57:11 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/19 18:30:00 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int			main(int ac, char **argv, char **environ)
 	//init signal
 	ft_select_signal_handle();
 	//init args
+	ft_select_init_args(argv);
 	// handle key presses
 	// reset to default configuation
 	//output selected args

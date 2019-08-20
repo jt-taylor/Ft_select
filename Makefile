@@ -6,7 +6,7 @@
 #    By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/16 19:30:49 by jtaylor           #+#    #+#              #
-#    Updated: 2019/08/17 11:17:05 by jtaylor          ###   ########.fr        #
+#    Updated: 2019/08/18 17:45:36 by jtaylor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ DEBUG_FLAG = -g3
 
 SRC =	ft_select_main.c \
 		ft_select_init_termcaps.c \
-		ft_select_signal.c
+		ft_select_signal.c \
+		ft_select_assorted_func.c
+
 
 .PHONY = all clean fclean re
 
