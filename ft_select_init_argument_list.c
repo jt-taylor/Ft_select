@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:16:36 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/21 19:54:43 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/22 10:23:10 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ static void	ft_select_insert_arg(char *str)
 
 	new = (t_arg*)malloc(sizeof(t_arg));
 	new->arg_name = ft_strdup(str);
+	new->selected = 0;
 	g_select.total_count++;
 	//if first
 	if (g_select.arg_list)
 	{
-		new->next = g_select.arg_list;
-		g_select.arg_list->prev = new;
-		new->prev = g_select.arg_list->prev;
+		new->prev = g_select.arg_list;
+		new->next = new;
 		g_select.arg_list->next = new;
+		g_select.arg_list = new;
 		return ;
 	}
 	else
@@ -41,7 +42,7 @@ void		ft_select_init_args(char **arg)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	g_select.total_selected = 0;
 	g_select.total_count = 0;
 	while (arg[++i])

@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 17:47:22 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/21 19:50:16 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/22 15:35:40 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,11 @@ void		init_termcap(char **env);
 ** ft_select_signal.c
 */
 void	ft_select_signal_handler(int signo);
+
+/*
+** ft_select_handle_key_press.c
+*/
+void		ft_select_handle_key_press(void);
 
 /*
 ** ft_select_main.c
