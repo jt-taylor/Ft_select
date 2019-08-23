@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 17:47:22 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/22 15:35:40 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/23 15:09:43 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_arg
 {
 	char	*arg_name;
 	int		selected;
+	struct s_arg	*head;
 	struct s_arg	*next;
 	struct s_arg	*prev;
 }					t_arg;
@@ -57,8 +58,10 @@ typedef struct	s_select
 	struct termios	old_attr;
 	struct termios	attr;
 	t_arg		*arg_list;
+	t_arg		*current_cursor;
 	int			total_count;
 	int			total_selected;
+	int			ac;
 }				t_select;
 
 t_select		g_select;
@@ -86,6 +89,14 @@ void	ft_select_signal_handler(int signo);
 ** ft_select_handle_key_press.c
 */
 void		ft_select_handle_key_press(void);
+
+/*
+** ft_select_handle_space_and_lr_arrows.c
+*/
+void	ft_select_handle_space(void);
+void	ft_select_handle_right_arrow(void);
+void	ft_select_handle_left_arrow(void);
+
 
 /*
 ** ft_select_main.c

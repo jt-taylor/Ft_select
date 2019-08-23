@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:16:36 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/22 10:23:10 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/23 13:42:14 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	ft_select_insert_arg(char *str)
 	{
 		new->prev = g_select.arg_list;
 		new->next = new;
+		new->head = g_select.arg_list->head;
 		g_select.arg_list->next = new;
 		g_select.arg_list = new;
 		return ;
@@ -34,6 +35,7 @@ static void	ft_select_insert_arg(char *str)
 	{
 		new->prev = new;
 		new->next = new;
+		new->head = new;
 		g_select.arg_list = new;
 	}
 }
@@ -52,4 +54,5 @@ void		ft_select_init_args(char **arg)
 		//if it is selected or not
 			//and forward // backward pointers
 	}
+	g_select.current_cursor = g_select.arg_list->head;
 }
