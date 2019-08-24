@@ -6,7 +6,7 @@
 #    By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/16 19:30:49 by jtaylor           #+#    #+#              #
-#    Updated: 2019/08/23 14:33:32 by jtaylor          ###   ########.fr        #
+#    Updated: 2019/08/24 11:33:16 by jtaylor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC =	ft_select_main.c \
 		ft_select_assorted_func.c \
 		ft_select_init_argument_list.c \
 		ft_select_handle_key_press.c \
-		ft_select_handle_space_and_lr_arrows.c
+		ft_select_handle_space_and_lr_arrows.c \
+		ft_select_handle_enter_key.c
 
 
 .PHONY = all clean fclean re

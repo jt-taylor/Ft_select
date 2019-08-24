@@ -6,13 +6,13 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 10:33:05 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/23 21:31:04 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/24 11:30:03 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static void		ft_select_reset_default_term_config(void)
+void		ft_select_reset_default_term_config(void)
 {
 	tcsetattr(2, TCSANOW, &g_select.old_attr);
 	tputs(tgetstr("ve", NULL), 1, ft_select_putchar);

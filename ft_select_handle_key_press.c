@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:02:06 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/23 21:23:28 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/24 11:34:18 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 **
 ** the winsize struct defined in sys/ioctl.h
 ** struct winsize
-** {
+r* {
 **   unsigned short ws_row;	/ rows, in characters /
 **   unsigned short ws_col;	/ columns, in characters /
 **   unsigned short ws_xpixel;	/ horizontal size, pixels /
@@ -135,6 +135,13 @@ void		ft_select_handle_key_press(void)
 			ft_select_handle_right_arrow();
 		else if (ft_strequ(c, "\x7f"))
 			ft_select_remove_arg();
+		else if (ft_strequ(c, "\n"))
+		{
+			ft_select_reset_default_term_config();
+			ft_select_handle_enter_key();
+			// exit ??
+			exit(0);
+		}
 		// if not a key that we handle then keep runnnig the loop
 	}
 }
