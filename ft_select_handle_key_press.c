@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:02:06 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 11:34:18 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/24 15:19:28 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,12 @@ void		ft_select_handle_key_press(void)
 			ft_select_handle_right_arrow();
 		else if (ft_strequ(c, "\x7f"))
 			ft_select_remove_arg();
+		else if (ft_strequ(c, "\e"))
+			handle_signal_exit();
 		else if (ft_strequ(c, "\n"))
 		{
 			ft_select_reset_default_term_config();
+			set_custom_config();
 			ft_select_handle_enter_key();
 			// exit ??
 			exit(0);

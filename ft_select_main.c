@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 13:00:00 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 11:03:39 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/24 14:48:25 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		ft_exit_err(char *str, int exit_code)
 ** init signal
 */
 
-static void		ft_select_signal_handle(void)
+void		ft_select_signal_handle(void)
 {
 	signal(SIGWINCH, ft_select_signal_handler);
 	signal(SIGABRT, ft_select_signal_handler);
@@ -69,9 +69,9 @@ String of commands to put the terminal into whatever special modes are needed or
 ** `vi'
 **		String of commands to make the cursor invisible.
 */
-static void		set_custom_config(char **env)
+void		set_custom_config(void)
 {
-	init_termcap(env);
+	init_termcap(g_select.environ);
 	tcgetattr(2, &g_select.old_attr);
 	tcgetattr(2,  &g_select.attr);
 	// unset cannonical mode
@@ -95,7 +95,8 @@ int			main(int ac, char **argv, char **environ)
 		;
 	//init termcap;
 	//init_termcap(environ);
-	set_custom_config(environ);
+	g_select.environ = environ;
+	set_custom_config();
 	//init signal
 	ft_select_signal_handle();
 	//init args

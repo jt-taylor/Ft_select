@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 10:33:05 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 11:30:03 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/24 14:47:22 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ static void		handle_signal_suspend(void)
 {
 	//reset terminal conf
 	//set default action for SIGTSTP && SIGSTOP
+	ft_select_reset_default_term_config();
+	//resset to default siganl handling for SIGTSTP
+	signal(SIGTSTP, SIG_DFL);
+	// emulates a return charector on the terminal input
+	ioctl(2, TIOCSTI, "\x1A");
 }
 
 /*
@@ -38,7 +43,7 @@ void		handle_signal_exit(void)
 	//reset termial
 	ft_select_reset_default_term_config();
 	//free anything
-	printf("Got to hanlde_signal_stop\n");
+	//printf("Got to hanlde_signal_stop\n");
 	exit(0);
 }
 
@@ -60,7 +65,11 @@ void	ft_select_signal_handler(int signo)
 	else if (signo == SIGCONT)
 		//handle process resume
 		// handle preocess already runnnig resume
-		;
+		{
+			set_custom_config();
+			ft_select_signal_handle();
+			ft_select_handle_key_press();
+		}
 	else if (signo == SIGWINCH)
 		//handle window resize;
 		;

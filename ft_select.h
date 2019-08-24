@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 17:47:22 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 11:30:58 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/24 14:47:40 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_select
 	int			total_count;
 	int			total_selected;
 	int			ac;
+	char		**environ;
 }				t_select;
 
 t_select		g_select;
@@ -109,5 +110,7 @@ void		ft_select_handle_enter_key(void);
 ** ft_select_main.c
 */
 void		ft_exit_err(char *str, int exit_code);
+void		set_custom_config(void);
+void		ft_select_signal_handle(void);
 
 #endif
