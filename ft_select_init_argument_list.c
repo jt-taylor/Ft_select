@@ -6,13 +6,50 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:16:36 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/23 13:42:14 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/23 21:33:32 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-//insert arg
+/*
+** removes the current arg and sets g_select_current_currsor to the next arg
+*/
+void		ft_select_remove_arg()
+{
+	t_arg	*tmp;
+
+	tmp = g_select.current_cursor;
+	if (tmp->next != tmp)
+		g_select.current_cursor = tmp->next;
+	else if (tmp->prev != tmp)
+		g_select.current_cursor = tmp->prev;
+	else
+		handle_signal_exit();
+	//if first
+	if (tmp->prev == tmp)
+	{
+		tmp->next->prev = tmp->next;
+		free(tmp->arg_name);
+		free(tmp);
+	}
+	//if last
+	else if (tmp->next == tmp)
+	{
+		tmp->prev->next = tmp->prev;
+		free(tmp->arg_name);
+		free(tmp);
+	}
+	//if middle
+	else
+	{
+		tmp->next->prev = tmp->prev;
+		tmp->prev->next = tmp->next;
+		free(tmp->arg_name);
+		free(tmp);
+	}
+}
+
 static void	ft_select_insert_arg(char *str)
 {
 	t_arg	*new;

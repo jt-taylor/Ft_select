@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 14:24:34 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/23 16:50:00 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/23 21:25:30 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,4 @@ void	ft_select_handle_right_arrow(void)
 			tmp = tmp->prev;
 		g_select.current_cursor = tmp;
 	}
-}
-
-void	ft_select_handle_del_key();
-{
-	//if last arg exit the program
 }

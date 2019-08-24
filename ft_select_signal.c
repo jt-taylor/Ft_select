@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 10:33:05 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/19 18:01:56 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/23 21:31:04 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void		handle_signal_suspend(void)
 ** signal handle for sigkill etc ...
 */
 
-static void		handle_signal_exit(void)
+void		handle_signal_exit(void)
 {
 	//reset termial
 	ft_select_reset_default_term_config();

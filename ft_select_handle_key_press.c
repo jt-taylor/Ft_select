@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:02:06 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/23 16:44:17 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/23 21:23:28 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ void		ft_select_handle_key_press(void)
 			ft_select_handle_left_arrow();
 		else if (ft_strequ(c, "\e[C"))
 			ft_select_handle_right_arrow();
+		else if (ft_strequ(c, "\x7f"))
+			ft_select_remove_arg();
 		// if not a key that we handle then keep runnnig the loop
 	}
 }
