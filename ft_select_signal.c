@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 10:33:05 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 14:47:22 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/25 12:27:44 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	ft_select_signal_handler(int signo)
 		// handle preocess already runnnig resume
 		{
 			set_custom_config();
-			ft_select_signal_handle();
+			//do i need this ?
+			//ft_select_signal_handle();
 			ft_select_handle_key_press();
 		}
 	else if (signo == SIGWINCH)

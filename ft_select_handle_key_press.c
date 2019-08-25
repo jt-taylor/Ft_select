@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:02:06 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 15:19:28 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/25 14:39:07 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,17 @@ static void		ft_select_display_args_elem(t_arg *arg_list, int row, int col)
 	while (arg_list->prev != arg_list)
 		arg_list = arg_list->prev;
 	//for each row print an argument
-	while (++i < row)
+	while (++i < row && arg_list != arg_list->next)
 	{
 		j = -1;
-		while (++j < col)
+		//ft_dprintf(2, "\nrow = %d\ntrow = %d\n", row, get_term_size(0));
+		if (ft_strlen(arg_list->arg_name) > (unsigned long)col)
+		{
+			write(2, "...\n", 3);
+			arg_list = arg_list->next;
+			continue ;
+		}
+		while (j < col)
 		{
 			// add a var to the struct to display which one is has the cursor on it
 			//display underlined for selected args
@@ -71,6 +78,10 @@ static void		ft_select_display_args_elem(t_arg *arg_list, int row, int col)
 			//ft_putstr_fd("\033[7m", 2);
 			//ft_putstr_fd(arg_list->arg_name, 2);
 			//ft_putstr_fd("\033[0m", 2);
+			j += ft_strlen(arg_list->arg_name) + 1;
+			if (j > col)
+				//ft_putstr_fd("\n", 2);
+				break ;
 			ft_select_put_arg(arg_list, arg_list->arg_name);
 			if (arg_list->next == arg_list)
 				break ;
@@ -102,11 +113,7 @@ static void		ft_select_display_args(void)
 	tputs(tgetstr("cl", NULL), 1, ft_select_putchar);
 	col = ft_select_count_columns();
 	//change this to ac / # col
-	rows = g_select.ac / col;
-	if (!rows)
-		rows = 1;
-	if (rows > get_term_size(0))
-		return ;
+	rows = get_term_size(0);
 	//display
 	ft_select_display_args_elem(g_select.arg_list, rows, col);
 }
@@ -140,7 +147,6 @@ void		ft_select_handle_key_press(void)
 		else if (ft_strequ(c, "\n"))
 		{
 			ft_select_reset_default_term_config();
-			set_custom_config();
 			ft_select_handle_enter_key();
 			// exit ??
 			exit(0);
