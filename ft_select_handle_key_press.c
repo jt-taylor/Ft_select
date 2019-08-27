@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:02:06 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/25 14:39:07 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/27 11:38:59 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,24 @@ static void		ft_select_display_args_elem(t_arg *arg_list, int row, int col)
 {
 	int		i;
 	int		j;
-	int		str_len;
-	(void)str_len;
+	int		last;
 
 	i = -1;
-	//this is hacky but  after it goes through once it's at the end of the
-	// linked list and only puts the last argument
-	// better solution add a pointer to the head or end node and 
-	// check against that
 	while (arg_list->prev != arg_list)
 		arg_list = arg_list->prev;
 	//for each row print an argument
-	while (++i < row && arg_list != arg_list->next)
+	//this doesn't print the last one
+	//if it has to put"..." and the next name is the last one it wont print
+	while (++i < row && (arg_list != arg_list->next || last))
 	{
 		j = -1;
 		//ft_dprintf(2, "\nrow = %d\ntrow = %d\n", row, get_term_size(0));
-		if (ft_strlen(arg_list->arg_name) > (unsigned long)col)
+		if (ft_strlen(arg_list->arg_name) >= (unsigned long)col)
 		{
-			write(2, "...\n", 3);
+			//ft_putstr_fd("\033[35m...\n\033[0m", 2);
+			ft_select_put_arg(arg_list, "...\n");
 			arg_list = arg_list->next;
+			last = 1;
 			continue ;
 		}
 		while (j < col)
@@ -89,6 +88,7 @@ static void		ft_select_display_args_elem(t_arg *arg_list, int row, int col)
 			ft_putchar_fd(' ', 2);
 		}
 		ft_putstr_fd("\n", 2);
+		last = 0;
 	}
 }
 
@@ -103,7 +103,7 @@ static int		ft_select_count_columns(void)
 	return (col);
 }
 
-static void		ft_select_display_args(void)
+void		ft_select_display_args(void)
 {
 	int		col;
 	int		rows;

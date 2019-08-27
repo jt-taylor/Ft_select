@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 17:47:22 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 14:47:40 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/27 11:39:08 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <termios.h>
 # include <stdlib.h>
 # include <sys/ioctl.h>
+# include <sys/signal.h>
 # include "libft.h"
 # include "ft_printf.h"
 
@@ -91,6 +92,7 @@ void		ft_select_reset_default_term_config(void);
 /*
 ** ft_select_handle_key_press.c
 */
+void		ft_select_display_args(void);
 void		ft_select_handle_key_press(void);
 
 /*

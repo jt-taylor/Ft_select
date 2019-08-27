@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 10:33:05 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/25 12:27:44 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/27 11:59:48 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,11 @@ void	ft_select_signal_handler(int signo)
 		{
 			set_custom_config();
 			//do i need this ?
-			//ft_select_signal_handle();
+			ft_select_signal_handle();
 			ft_select_handle_key_press();
 		}
 	else if (signo == SIGWINCH)
-		//handle window resize;
-		;
+		ft_select_display_args();
 	else if (signo == SIGINT || signo == SIGABRT || signo == SIGQUIT)
 		// handle sig	-interupt
 		//				-abort
