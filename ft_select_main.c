@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 13:00:00 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 14:48:25 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/28 12:18:54 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,17 @@ void		ft_select_signal_handle(void)
 ** toggles cannonical mode of , min read chars = 1 , timeout disabled
 **
 ** `ti'
-String of commands to put the terminal into whatever special modes are needed or appropriate for programs that move the cursor nonsequentially around the screen. Programs that use termcap to do full-screen display should output this string when they start up.
-
 ** `vi'
 **		String of commands to make the cursor invisible.
 */
+
 void		set_custom_config(void)
 {
 	init_termcap(g_select.environ);
 	tcgetattr(2, &g_select.old_attr);
-	tcgetattr(2,  &g_select.attr);
-	// unset cannonical mode
+	tcgetattr(2, &g_select.attr);
 	g_select.attr.c_lflag &= ~(ICANON | ECHO);
-	// minimum # of char's to read in non cannon mode
 	g_select.attr.c_cc[VMIN] = 1;
-	// timeout for noncannonical mode
 	g_select.attr.c_cc[VTIME] = 0;
 	tcsetattr(2, TCSANOW, &g_select.attr);
 	tputs(tgetstr("ti", NULL), 1, ft_select_putchar);
@@ -89,25 +85,12 @@ int			main(int ac, char **argv, char **environ)
 {
 	if (ac < 2 || (ac == 2 && argv[1][0] == '-'))
 		ft_select_usage_message();
-	//maybe have a real mode so i don't delete my files on accident
-	//if (argv[1][0] == '0')
-		//check flag options
-		;
-	//init termcap;
-	//init_termcap(environ);
 	g_select.environ = environ;
 	set_custom_config();
-	//init signal
 	ft_select_signal_handle();
-	//init args
 	ft_select_init_args(argv);
 	g_select.ac = ac - 1;
-	// handle key presses
 	ft_select_handle_key_press();
-	// reset to default configuation
-	//output selected args
-	//free (?)
-	//for testing signal
 	while (1)
 		;
 	return (0);

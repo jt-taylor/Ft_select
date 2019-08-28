@@ -6,20 +6,19 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 19:47:20 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/18 17:55:24 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/28 12:13:02 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_select.h"
+#include "ft_select.h"
 
 void		init_termcap(char **env)
 {
-	(void)env;
 	char	*termbuffer;
 	char	*term_type;
 	int		status;
 
-	// needed to malloc (?)
+	(void)env;
 	termbuffer = g_select.termbuffer;
 	ft_bzero(termbuffer, 2048);
 	term_type = getenv("TERM");
@@ -36,6 +35,4 @@ void		init_termcap(char **env)
 		ft_dprintf(2, "fd: 2 does not belong to a tty\n");
 		exit(1);
 	}
-	//testing
-	//printf("wow you did it , here's some stuff: TERM:%s , status=%d", term_type, status);
 }

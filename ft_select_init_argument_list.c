@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 18:16:36 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/23 21:33:32 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/28 12:34:12 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,31 @@
 /*
 ** removes the current arg and sets g_select_current_currsor to the next arg
 */
-void		ft_select_remove_arg()
+
+static inline void	ft_select_norm_limit(t_arg *tmp)
+{
+	if (tmp->prev == tmp)
+	{
+		tmp->next->prev = tmp->next;
+		free(tmp->arg_name);
+		free(tmp);
+	}
+	else if (tmp->next == tmp)
+	{
+		tmp->prev->next = tmp->prev;
+		free(tmp->arg_name);
+		free(tmp);
+	}
+	else
+	{
+		tmp->next->prev = tmp->prev;
+		tmp->prev->next = tmp->next;
+		free(tmp->arg_name);
+		free(tmp);
+	}
+}
+
+void				ft_select_remove_arg(void)
 {
 	t_arg	*tmp;
 
@@ -26,31 +50,10 @@ void		ft_select_remove_arg()
 		g_select.current_cursor = tmp->prev;
 	else
 		handle_signal_exit();
-	//if first
-	if (tmp->prev == tmp)
-	{
-		tmp->next->prev = tmp->next;
-		free(tmp->arg_name);
-		free(tmp);
-	}
-	//if last
-	else if (tmp->next == tmp)
-	{
-		tmp->prev->next = tmp->prev;
-		free(tmp->arg_name);
-		free(tmp);
-	}
-	//if middle
-	else
-	{
-		tmp->next->prev = tmp->prev;
-		tmp->prev->next = tmp->next;
-		free(tmp->arg_name);
-		free(tmp);
-	}
+	ft_select_norm_limit(tmp);
 }
 
-static void	ft_select_insert_arg(char *str)
+static void			ft_select_insert_arg(char *str)
 {
 	t_arg	*new;
 
@@ -58,7 +61,6 @@ static void	ft_select_insert_arg(char *str)
 	new->arg_name = ft_strdup(str);
 	new->selected = 0;
 	g_select.total_count++;
-	//if first
 	if (g_select.arg_list)
 	{
 		new->prev = g_select.arg_list;
@@ -77,7 +79,7 @@ static void	ft_select_insert_arg(char *str)
 	}
 }
 
-void		ft_select_init_args(char **arg)
+void				ft_select_init_args(char **arg)
 {
 	int	i;
 
@@ -87,9 +89,6 @@ void		ft_select_init_args(char **arg)
 	while (arg[++i])
 	{
 		ft_select_insert_arg(arg[i]);
-		//add arg[i] to a linked list that will store the arg_name , and 
-		//if it is selected or not
-			//and forward // backward pointers
 	}
 	g_select.current_cursor = g_select.arg_list->head;
 }

@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 14:24:34 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/24 11:16:26 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/28 12:13:53 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** this is pretty simple , it just swaps between zero and 1
 ** the int is checked when writing the argument
-** doing it this way is pretty simple because we clear the screen 
+** doing it this way is pretty simple because we clear the screen
 ** then right the arguments again and just go back and forth for that
 */
 
