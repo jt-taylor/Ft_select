@@ -6,7 +6,7 @@
 /*   By: jtaylor <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 14:24:34 by jtaylor           #+#    #+#             */
-/*   Updated: 2019/08/28 12:13:53 by jtaylor          ###   ########.fr       */
+/*   Updated: 2019/08/28 16:24:43 by jtaylor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 void	ft_select_handle_space(void)
 {
 	g_select.current_cursor->selected = (g_select.current_cursor->selected ^ 1);
+	ft_select_handle_right_arrow();
 }
 
 void	ft_select_handle_left_arrow(void)
